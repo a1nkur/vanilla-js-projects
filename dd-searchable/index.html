@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script defer src="./app.js"></script>
+
+    <title>Searchable POC</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        font-family: "Poppins";
+        display: grid;
+        place-items: center;
+        height: 100vh;
+        width: 100vw;
+      }
+
+      .center-container {
+        height: 80vh;
+        width: 80vw;
+        border: 1px solid #ccc;
+        padding: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="center-container">
+      <div class="dd-searchable-wrapper" value="">
+        <div class="select-field-container">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_13532_51612)">
+              <g clip-path="url(#clip1_13532_51612)">
+                <path
+                  d="M15.5006 14.0006H14.7106L14.4306 13.7306C15.6306 12.3306 16.2506 10.4206 15.9106 8.39063C15.4406 5.61063 13.1206 3.39063 10.3206 3.05063C6.09063 2.53063 2.53063 6.09063 3.05063 10.3206C3.39063 13.1206 5.61063 15.4406 8.39063 15.9106C10.4206 16.2506 12.3306 15.6306 13.7306 14.4306L14.0006 14.7106V15.5006L18.2506 19.7506C18.6606 20.1606 19.3306 20.1606 19.7406 19.7506C20.1506 19.3406 20.1506 18.6706 19.7406 18.2606L15.5006 14.0006ZM9.50063 14.0006C7.01063 14.0006 5.00063 11.9906 5.00063 9.50063C5.00063 7.01063 7.01063 5.00063 9.50063 5.00063C11.9906 5.00063 14.0006 7.01063 14.0006 9.50063C14.0006 11.9906 11.9906 14.0006 9.50063 14.0006Z"
+                  fill="#B11116"
+                />
+              </g>
+            </g>
+            <defs>
+              <clipPath id="clip0_13532_51612">
+                <rect width="24" height="24" fill="white" />
+              </clipPath>
+              <clipPath id="clip1_13532_51612">
+                <rect width="24" height="24" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+
+          <input
+            type="text"
+            class="select-field-value"
+            value=""
+            placeholder="Select area"
+            onkeydown="return /[a-z ]/i.test(event.key)"
+          />
+
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_13532_51606)">
+              <g clip-path="url(#clip1_13532_51606)">
+                <path
+                  d="M15.8805 9.2925L12.0005 13.1725L8.12047 9.2925C7.73047 8.9025 7.10047 8.9025 6.71047 9.2925C6.32047 9.6825 6.32047 10.3125 6.71047 10.7025L11.3005 15.2925C11.6905 15.6825 12.3205 15.6825 12.7105 15.2925L17.3005 10.7025C17.6905 10.3125 17.6905 9.6825 17.3005 9.2925C16.9105 8.9125 16.2705 8.9025 15.8805 9.2925Z"
+                  fill="#1A1A1A"
+                />
+              </g>
+            </g>
+            <defs>
+              <clipPath id="clip0_13532_51606">
+                <rect width="24" height="24" fill="white" />
+              </clipPath>
+              <clipPath id="clip1_13532_51606">
+                <rect width="24" height="24" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+
+          <div class="dd-searchable-menu">
+            <div class="menu-list-container">
+              <div class="menu-list-item" id="0">
+                <div class="region" id="0-0" onclick="regionSelectionHandler(event,this)" selected="0">
+                  <div class="unchecked-svg visible">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                      <rect x="1" y="1" width="22" height="22" rx="3" stroke="#1A1A1A" stroke-width="2" />
+                    </svg>
+                  </div>
+
+                  <div class="checked-svg hidden">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_13648_51862)">
+                        <rect x="4" y="4" width="16" height="16" rx="2" fill="#EE4F53" />
+                        <path
+                          d="M10.0006 14.7828L7.68725 12.4695C7.42725 12.2095 7.00725 12.2095 6.74725 12.4695C6.48725 12.7295 6.48725 13.1495 6.74725 13.4095L9.53391 16.1961C9.79391 16.4561 10.2139 16.4561 10.4739 16.1961L17.5272 9.14281C17.7872 8.88281 17.7872 8.46281 17.5272 8.20281C17.2672 7.94281 16.8472 7.94281 16.5872 8.20281L10.0006 14.7828Z"
+                          fill="white"
+                        />
+                      </g>
+                      <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                      <defs>
+                        <clipPath id="clip0_13648_51862">
+                          <rect x="4" y="4" width="16" height="16" rx="2" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                  <span class="menu-list-value" value="Northern Metro Manila">Northern Metro Manila</span>
+                </div>
+                <div class="location-collection">
+                  <div class="location-item" id="0-1" onclick="LocationSelectionHandler(event,this)" selected="0">
+                    <div class="unchecked-svg visible">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="#1A1A1A" stroke-width="2" />
+                      </svg>
+                    </div>
+
+                    <div class="checked-svg hidden">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_13648_51862)">
+                          <rect x="4" y="4" width="16" height="16" rx="2" fill="#EE4F53" />
+                          <path
+                            d="M10.0006 14.7828L7.68725 12.4695C7.42725 12.2095 7.00725 12.2095 6.74725 12.4695C6.48725 12.7295 6.48725 13.1495 6.74725 13.4095L9.53391 16.1961C9.79391 16.4561 10.2139 16.4561 10.4739 16.1961L17.5272 9.14281C17.7872 8.88281 17.7872 8.46281 17.5272 8.20281C17.2672 7.94281 16.8472 7.94281 16.5872 8.20281L10.0006 14.7828Z"
+                            fill="white"
+                          />
+                        </g>
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <defs>
+                          <clipPath id="clip0_13648_51862">
+                            <rect x="4" y="4" width="16" height="16" rx="2" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+
+                    <span class="menu-list-value" value="Mandaluyong">Mandaluyong</span>
+                  </div>
+
+                  <div class="location-item" id="0-2" onclick="LocationSelectionHandler(event,this)" selected="0">
+                    <div class="unchecked-svg visible">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="#1A1A1A" stroke-width="2" />
+                      </svg>
+                    </div>
+
+                    <div class="checked-svg hidden">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_13648_51862)">
+                          <rect x="4" y="4" width="16" height="16" rx="2" fill="#EE4F53" />
+                          <path
+                            d="M10.0006 14.7828L7.68725 12.4695C7.42725 12.2095 7.00725 12.2095 6.74725 12.4695C6.48725 12.7295 6.48725 13.1495 6.74725 13.4095L9.53391 16.1961C9.79391 16.4561 10.2139 16.4561 10.4739 16.1961L17.5272 9.14281C17.7872 8.88281 17.7872 8.46281 17.5272 8.20281C17.2672 7.94281 16.8472 7.94281 16.5872 8.20281L10.0006 14.7828Z"
+                            fill="white"
+                          />
+                        </g>
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <defs>
+                          <clipPath id="clip0_13648_51862">
+                            <rect x="4" y="4" width="16" height="16" rx="2" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+
+                    <span class="menu-list-value" value="Pasig East Marikina">Pasig East Marikina</span>
+                  </div>
+
+                  <div class="location-item" id="0-3" onclick="LocationSelectionHandler(event,this)" selected="0">
+                    <div class="unchecked-svg visible">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="#1A1A1A" stroke-width="2" />
+                      </svg>
+                    </div>
+
+                    <div class="checked-svg hidden">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_13648_51862)">
+                          <rect x="4" y="4" width="16" height="16" rx="2" fill="#EE4F53" />
+                          <path
+                            d="M10.0006 14.7828L7.68725 12.4695C7.42725 12.2095 7.00725 12.2095 6.74725 12.4695C6.48725 12.7295 6.48725 13.1495 6.74725 13.4095L9.53391 16.1961C9.79391 16.4561 10.2139 16.4561 10.4739 16.1961L17.5272 9.14281C17.7872 8.88281 17.7872 8.46281 17.5272 8.20281C17.2672 7.94281 16.8472 7.94281 16.5872 8.20281L10.0006 14.7828Z"
+                            fill="white"
+                          />
+                        </g>
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <defs>
+                          <clipPath id="clip0_13648_51862">
+                            <rect x="4" y="4" width="16" height="16" rx="2" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+
+                    <span class="menu-list-value" value="Pasig West">Pasig West</span>
+                  </div>
+
+                  <div class="location-item" id="0-4" onclick="LocationSelectionHandler(event,this)" selected="0">
+                    <div class="unchecked-svg visible">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="#1A1A1A" stroke-width="2" />
+                      </svg>
+                    </div>
+
+                    <div class="checked-svg hidden">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_13648_51862)">
+                          <rect x="4" y="4" width="16" height="16" rx="2" fill="#EE4F53" />
+                          <path
+                            d="M10.0006 14.7828L7.68725 12.4695C7.42725 12.2095 7.00725 12.2095 6.74725 12.4695C6.48725 12.7295 6.48725 13.1495 6.74725 13.4095L9.53391 16.1961C9.79391 16.4561 10.2139 16.4561 10.4739 16.1961L17.5272 9.14281C17.7872 8.88281 17.7872 8.46281 17.5272 8.20281C17.2672 7.94281 16.8472 7.94281 16.5872 8.20281L10.0006 14.7828Z"
+                            fill="white"
+                          />
+                        </g>
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <defs>
+                          <clipPath id="clip0_13648_51862">
+                            <rect x="4" y="4" width="16" height="16" rx="2" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+
+                    <span class="menu-list-value" value="QC Central">QC Central</span>
+                  </div>
+
+                  <div class="location-item" id="0-5" onclick="LocationSelectionHandler(event,this)" selected="0">
+                    <div class="unchecked-svg visible">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="#1A1A1A" stroke-width="2" />
+                      </svg>
+                    </div>
+
+                    <div class="checked-svg hidden">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_13648_51862)">
+                          <rect x="4" y="4" width="16" height="16" rx="2" fill="#EE4F53" />
+                          <path
+                            d="M10.0006 14.7828L7.68725 12.4695C7.42725 12.2095 7.00725 12.2095 6.74725 12.4695C6.48725 12.7295 6.48725 13.1495 6.74725 13.4095L9.53391 16.1961C9.79391 16.4561 10.2139 16.4561 10.4739 16.1961L17.5272 9.14281C17.7872 8.88281 17.7872 8.46281 17.5272 8.20281C17.2672 7.94281 16.8472 7.94281 16.5872 8.20281L10.0006 14.7828Z"
+                            fill="white"
+                          />
+                        </g>
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <defs>
+                          <clipPath id="clip0_13648_51862">
+                            <rect x="4" y="4" width="16" height="16" rx="2" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+
+                    <span class="menu-list-value" value="QC East">QC East</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-list-item" id="1">
+                <div class="region" id="1-0" onclick="regionSelectionHandler(event,this)" selected="0">
+                  <div class="unchecked-svg visible">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                      <rect x="1" y="1" width="22" height="22" rx="3" stroke="#1A1A1A" stroke-width="2" />
+                    </svg>
+                  </div>
+
+                  <div class="checked-svg hidden">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_13648_51862)">
+                        <rect x="4" y="4" width="16" height="16" rx="2" fill="#EE4F53" />
+                        <path
+                          d="M10.0006 14.7828L7.68725 12.4695C7.42725 12.2095 7.00725 12.2095 6.74725 12.4695C6.48725 12.7295 6.48725 13.1495 6.74725 13.4095L9.53391 16.1961C9.79391 16.4561 10.2139 16.4561 10.4739 16.1961L17.5272 9.14281C17.7872 8.88281 17.7872 8.46281 17.5272 8.20281C17.2672 7.94281 16.8472 7.94281 16.5872 8.20281L10.0006 14.7828Z"
+                          fill="white"
+                        />
+                      </g>
+                      <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                      <defs>
+                        <clipPath id="clip0_13648_51862">
+                          <rect x="4" y="4" width="16" height="16" rx="2" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                  <span class="menu-list-value" value="Southern Metro Manila">Southern Metro Manila</span>
+                </div>
+                <div class="location-collection">
+                  <div class="location-item" id="1-1" onclick="LocationSelectionHandler(event,this)" selected="0">
+                    <div class="unchecked-svg visible">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="#1A1A1A" stroke-width="2" />
+                      </svg>
+                    </div>
+
+                    <div class="checked-svg hidden">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_13648_51862)">
+                          <rect x="4" y="4" width="16" height="16" rx="2" fill="#EE4F53" />
+                          <path
+                            d="M10.0006 14.7828L7.68725 12.4695C7.42725 12.2095 7.00725 12.2095 6.74725 12.4695C6.48725 12.7295 6.48725 13.1495 6.74725 13.4095L9.53391 16.1961C9.79391 16.4561 10.2139 16.4561 10.4739 16.1961L17.5272 9.14281C17.7872 8.88281 17.7872 8.46281 17.5272 8.20281C17.2672 7.94281 16.8472 7.94281 16.5872 8.20281L10.0006 14.7828Z"
+                            fill="white"
+                          />
+                        </g>
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <defs>
+                          <clipPath id="clip0_13648_51862">
+                            <rect x="4" y="4" width="16" height="16" rx="2" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+
+                    <span class="menu-list-value" value="Alabang / Muntinlupa / Las Pinas"
+                      >Alabang / Muntinlupa / Las Pinas</span
+                    >
+                  </div>
+
+                  <div class="location-item" id="1-2" onclick="LocationSelectionHandler(event,this)" selected="0">
+                    <div class="unchecked-svg visible">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="#1A1A1A" stroke-width="2" />
+                      </svg>
+                    </div>
+
+                    <div class="checked-svg hidden">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_13648_51862)">
+                          <rect x="4" y="4" width="16" height="16" rx="2" fill="#EE4F53" />
+                          <path
+                            d="M10.0006 14.7828L7.68725 12.4695C7.42725 12.2095 7.00725 12.2095 6.74725 12.4695C6.48725 12.7295 6.48725 13.1495 6.74725 13.4095L9.53391 16.1961C9.79391 16.4561 10.2139 16.4561 10.4739 16.1961L17.5272 9.14281C17.7872 8.88281 17.7872 8.46281 17.5272 8.20281C17.2672 7.94281 16.8472 7.94281 16.5872 8.20281L10.0006 14.7828Z"
+                            fill="white"
+                          />
+                        </g>
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <defs>
+                          <clipPath id="clip0_13648_51862">
+                            <rect x="4" y="4" width="16" height="16" rx="2" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+
+                    <span class="menu-list-value" value="Makati Central">Makati Central</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-list-item" id="2">
+                <div class="region" id="2-0" onclick="regionSelectionHandler(event,this)" selected="0">
+                  <div class="unchecked-svg visible">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                      <rect x="1" y="1" width="22" height="22" rx="3" stroke="#1A1A1A" stroke-width="2" />
+                    </svg>
+                  </div>
+
+                  <div class="checked-svg hidden">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_13648_51862)">
+                        <rect x="4" y="4" width="16" height="16" rx="2" fill="#EE4F53" />
+                        <path
+                          d="M10.0006 14.7828L7.68725 12.4695C7.42725 12.2095 7.00725 12.2095 6.74725 12.4695C6.48725 12.7295 6.48725 13.1495 6.74725 13.4095L9.53391 16.1961C9.79391 16.4561 10.2139 16.4561 10.4739 16.1961L17.5272 9.14281C17.7872 8.88281 17.7872 8.46281 17.5272 8.20281C17.2672 7.94281 16.8472 7.94281 16.5872 8.20281L10.0006 14.7828Z"
+                          fill="white"
+                        />
+                      </g>
+                      <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                      <defs>
+                        <clipPath id="clip0_13648_51862">
+                          <rect x="4" y="4" width="16" height="16" rx="2" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                  <span class="menu-list-value" value="Eastern Metro Manila">Eastern Metro Manila</span>
+                </div>
+                <div class="location-collection">
+                  <div class="location-item" id="2-1" onclick="LocationSelectionHandler(event,this)" selected="0">
+                    <div class="unchecked-svg visible">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="#1A1A1A" stroke-width="2" />
+                      </svg>
+                    </div>
+
+                    <div class="checked-svg hidden">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_13648_51862)">
+                          <rect x="4" y="4" width="16" height="16" rx="2" fill="#EE4F53" />
+                          <path
+                            d="M10.0006 14.7828L7.68725 12.4695C7.42725 12.2095 7.00725 12.2095 6.74725 12.4695C6.48725 12.7295 6.48725 13.1495 6.74725 13.4095L9.53391 16.1961C9.79391 16.4561 10.2139 16.4561 10.4739 16.1961L17.5272 9.14281C17.7872 8.88281 17.7872 8.46281 17.5272 8.20281C17.2672 7.94281 16.8472 7.94281 16.5872 8.20281L10.0006 14.7828Z"
+                            fill="white"
+                          />
+                        </g>
+                        <rect x="1" y="1" width="22" height="22" rx="3" stroke="black" stroke-width="2" />
+                        <defs>
+                          <clipPath id="clip0_13648_51862">
+                            <rect x="4" y="4" width="16" height="16" rx="2" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+
+                    <span class="menu-list-value" value="Pasig / Quezon City">Pasig / Quezon City</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="error-status">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.99878 3.99378L13.0188 12.6671H2.97878L7.99878 3.99378ZM1.82545 12.0004C1.31211 12.8871 1.95211 14.0004 2.97878 14.0004H13.0188C14.0454 14.0004 14.6854 12.8871 14.1721 12.0004L9.15211 3.32711C8.63878 2.44044 7.35878 2.44044 6.84545 3.32711L1.82545 12.0004ZM7.33211 7.33378V8.66711C7.33211 9.03378 7.63211 9.33378 7.99878 9.33378C8.36544 9.33378 8.66544 9.03378 8.66544 8.66711V7.33378C8.66544 6.96711 8.36544 6.66711 7.99878 6.66711C7.63211 6.66711 7.33211 6.96711 7.33211 7.33378ZM7.33211 10.6671H8.66544V12.0004H7.33211V10.6671Z"
+              fill="#CC0000"
+            />
+          </svg>
+          <span class="error-message">None found</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
