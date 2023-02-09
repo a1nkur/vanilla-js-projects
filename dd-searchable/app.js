@@ -102,6 +102,7 @@ const renderFilterResultInDOM = (filteredArray, searchableMenuNode) => {
       },
       () => {
         store.searchable.state.menuListContainer.innerHTML = `${filteredArray.join("")}`;
+        searchableMenuNode.classList.add(MAP_NAMESPACE.STR_ACTIVE);
       }
     );
   } else {
@@ -147,6 +148,7 @@ window.onload = () => {
     store.searchable.setState(
       () => {
         store.searchable.state.isDropdownActive = MAP_NAMESPACE.BOOL_FALSE;
+        store.searchable.state.searchedKeyword = "";
       },
       () => {
         searchableMenuNode.classList.remove(MAP_NAMESPACE.STR_ACTIVE);
@@ -155,13 +157,18 @@ window.onload = () => {
 
         if (selectionListArraySize === 0) {
           inputNode.setAttribute(MAP_NAMESPACE.STR_VALUE, "");
+          inputNode.value = "";
         } else if (selectionListArraySize === 1) {
           inputNode.setAttribute(MAP_NAMESPACE.STR_VALUE, `${store.searchable.state.selectionList[0]}`);
+          inputNode.value = `${store.searchable.state.selectionList[0]}`;
         } else {
           inputNode.setAttribute(
             MAP_NAMESPACE.STR_VALUE,
             `${store.searchable.state.selectionList[0]} +${store.searchable.state.selectionList.length - 1}`
           );
+          inputNode.value = `${store.searchable.state.selectionList[0]} +${
+            store.searchable.state.selectionList.length - 1
+          }`;
         }
       }
     );
@@ -173,12 +180,15 @@ window.onload = () => {
     store.searchable.setState(
       () => {
         store.searchable.state.isDropdownActive = MAP_NAMESPACE.BOOL_TRUE;
+        store.searchable.state.searchedKeyword = "";
       },
       () => {
         searchableMenuNode.classList.add(MAP_NAMESPACE.STR_ACTIVE);
         inputNode.focus();
 
         inputNode.setAttribute(MAP_NAMESPACE.STR_VALUE, "");
+        inputNode.value = "";
+        populateOptions();
       }
     );
   });
@@ -190,6 +200,8 @@ window.onload = () => {
           store.searchable.state.searchedKeyword = event.target.value;
         },
         () => {
+          inputNode.setAttribute(MAP_NAMESPACE.STR_VALUE, event.target.value);
+
           filterDropMenu(searchableMenuNode);
         }
       );
@@ -213,8 +225,8 @@ const regionSelectionHandler = (event, node) => {
 
           array.push(location);
 
-          const uniqe = [...new Set(array)];
-          store.searchable.state.selectionList = uniqe;
+          const unique = [...new Set(array)];
+          store.searchable.state.selectionList = unique;
         }
       } else {
         for (let i = 0; i < [...node.nextElementSibling.children].length; i++) {
